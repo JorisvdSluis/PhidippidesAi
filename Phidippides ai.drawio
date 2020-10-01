@@ -1,0 +1,129 @@
+<mxfile host="app.diagrams.net" modified="2020-09-30T16:45:10.268Z" agent="5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36" etag="KUa1aW0Uo3M89l-Ahxiq" version="13.7.6" type="github">
+  <diagram id="YZQsbsMzeObXjtvzIkaN" name="Page-1">
+    <mxGraphModel dx="2004" dy="1332" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-17" value="" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1290" y="660" width="270" height="385" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-7" value="" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="445" y="370" width="270" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S2HJEbATFm9LrSGv8sVr-1" target="S2HJEbATFm9LrSGv8sVr-3" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-1" value="RSLidar&lt;br&gt;" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="S2HJEbATFm9LrSGv8sVr-3" target="S2HJEbATFm9LrSGv8sVr-5" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-3" value="c++ script" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="420" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="S2HJEbATFm9LrSGv8sVr-5" target="S2HJEbATFm9LrSGv8sVr-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-5" value="Lane detection via TensorFlow" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="535" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-6" value="ROS provider" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="650" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-14" value="Zed camera" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="260" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-16" value="Surroundings detection system" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="495" y="380" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="S2HJEbATFm9LrSGv8sVr-18" target="S2HJEbATFm9LrSGv8sVr-19" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-27" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="S2HJEbATFm9LrSGv8sVr-18" target="S2HJEbATFm9LrSGv8sVr-26" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-28" value="Throttle / Braking / Steering" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="S2HJEbATFm9LrSGv8sVr-27" vertex="1" connectable="0">
+          <mxGeometry x="-0.0244" y="7" relative="1" as="geometry">
+            <mxPoint x="16.18" y="7" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-18" value="Python script" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1365" y="822.5" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="S2HJEbATFm9LrSGv8sVr-19" target="S2HJEbATFm9LrSGv8sVr-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-19" value="Decision making via TensorFlow" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1365" y="950" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-26" value="Car / ECU /BUS" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1710" y="805" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="S2HJEbATFm9LrSGv8sVr-29" value="Decision making system" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="1350" y="670" width="150" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-1" value="" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="445" y="800" width="270" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="4I7upRymx2547WTxB1TP-3" target="4I7upRymx2547WTxB1TP-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-3" value="ROS provider" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="850" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KlIXw6HNqx_-AWWBHhry-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4I7upRymx2547WTxB1TP-6" target="4I7upRymx2547WTxB1TP-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-6" value="Object detection via TensorFlow" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-9" value="Object detection system" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="515" y="810" width="140" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="KlIXw6HNqx_-AWWBHhry-3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="4I7upRymx2547WTxB1TP-11" target="4I7upRymx2547WTxB1TP-6">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-11" value="Python script" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="520" y="1080" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-13" value="" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="880" y="660" width="270" height="380" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="4I7upRymx2547WTxB1TP-15" target="4I7upRymx2547WTxB1TP-27" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-15" value="ROS subscriber" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="955" y="760" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-18" value="ROS merge/ calibration system" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;" parent="1" vertex="1">
+          <mxGeometry x="930" y="685" width="180" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-26" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" parent="1" source="S2HJEbATFm9LrSGv8sVr-6" target="4I7upRymx2547WTxB1TP-15" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="4I7upRymx2547WTxB1TP-27" target="4I7upRymx2547WTxB1TP-30" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-27" value="Python script" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="955" y="860" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-34" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="4I7upRymx2547WTxB1TP-30" target="4I7upRymx2547WTxB1TP-33" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-30" value="ROS provider" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="955" y="960" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-36" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="4I7upRymx2547WTxB1TP-33" target="S2HJEbATFm9LrSGv8sVr-18" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="4I7upRymx2547WTxB1TP-33" value="ROS subscriber" style="whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="1365" y="715" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="KlIXw6HNqx_-AWWBHhry-2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="S2HJEbATFm9LrSGv8sVr-14" target="4I7upRymx2547WTxB1TP-11">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
