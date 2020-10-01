@@ -72,7 +72,7 @@ def plot_value_array(i, predictions_array, true_label):
     thisplot[true_label].set_color('blue')
 
 
-i = 0
+i = 3
 plt.figure(figsize=(6, 3))
 plt.subplot(1, 2, 1)
 plot_image(i, predictions[i], test_labels, test_images)
