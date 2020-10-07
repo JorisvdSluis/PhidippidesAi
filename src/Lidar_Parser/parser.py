@@ -4,7 +4,9 @@ import json
 
 with open('../../docs/logs/log.txt', "r") as textFile:
     jsonObject = []
+    k = 0
     for line in textFile:
+        k += 1
         line = line.replace("(", "")
         line = line.replace(")", "")
         line = line.replace(" - ", ",")
@@ -31,7 +33,8 @@ with open('../../docs/logs/log.txt', "r") as textFile:
                 "i": float(i),
             })
         except ValueError:
-            break
+            print("error on: " + k)
         j = 0
     with open('output.json', 'w') as f:
         json.dump(jsonObject, f)
+    print(k)
