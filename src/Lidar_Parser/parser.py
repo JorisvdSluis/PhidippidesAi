@@ -23,12 +23,15 @@ with open('../../docs/logs/log.txt', "r") as textFile:
             else:
                 i = word.replace("\n", "")
             j += 1
-        jsonObject.append({
-            "x": x,
-            "y": y,
-            "z": z,
-            "i": i,
-        })
+        try:
+            jsonObject.append({
+                "x": float(x),
+                "y": float(y),
+                "z": float(z),
+                "i": float(i),
+            })
+        except ValueError:
+            break
         j = 0
     with open('output.json', 'w') as f:
         json.dump(jsonObject, f)
