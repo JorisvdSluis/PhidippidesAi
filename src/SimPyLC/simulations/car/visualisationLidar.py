@@ -47,14 +47,17 @@ nrOfObstacles = 64
 class Lidar:
     # 0, ...,  halfApertureAngle - 1, -halfApertureAngle, ..., -1
     
-    def __init__ (self, apertureAngle, obstacles):
+    def __init__ (self, apertureAngle, obstacles, roadBorders):
         self.apertureAngle = apertureAngle
         self.halfApertureAngle = self.apertureAngle // 2
         self.obstacles = obstacles
+        self.roadBorders = roadBorders
         self.distances = [sp.finity for angle in range (self.apertureAngle)]
-        
+        self.roadDistances = [sp.finity for angle in range (self.apertureAngle)]
+
     def scan (self, mountPosition, mountAngle):
         self.distances = [sp.finity for angle in range (self.apertureAngle)]
+        self.roadDistances = [sp.finity for angle in range (self.apertureAngle)]
         all = [(sp.finity, angle) for angle in range (-180, 180)]
         
         for obstacle in self.obstacles:
@@ -68,8 +71,19 @@ class Lidar:
                 
             if -self.halfApertureAngle <= relativeAngle < self.halfApertureAngle - 1:
                 self.distances [relativeAngle] = min (distance, self.distances [relativeAngle])    # In case of coincidence, favor nearby obstacle
+        
+        for roadBorder in self.roadBorders:
+            relativePosition = sp.tSub (roadBorder.center, mountPosition) 
+            distance = sp.tNor (relativePosition)
+            absoluteAngle = sp.atan2 (relativePosition [1], relativePosition [0])
+            relativeAngle = (round (absoluteAngle - mountAngle) + 180) % 360 - 180
 
-        #print (all)
+            if distance < all [relativeAngle][0]:
+                all [relativeAngle] = (distance, relativeAngle)   # In case of coincidence, favor nearby obstacle  
+                
+            if -self.halfApertureAngle <= relativeAngle < self.halfApertureAngle - 1:
+                self.roadDistances [relativeAngle] = min (distance, self.roadDistances [relativeAngle])    # In case 
+        # print (all)
 
 class Line (sp.Cylinder):
     def __init__ (self, **arguments):
@@ -141,6 +155,7 @@ class Visualisation (sp.Scene):
         self.windowRear = Window (size = (0.05, 0.14, 0.18), center = (-0.18, 0, -0.025),angle = 72) 
 
         self.roadCones = []
+        self.roadBorders = []
         self.asphalt = []
         # with open('../../../Lidar_Parser/test.json') as f:
         #     data = json.load(f)
@@ -163,19 +178,29 @@ class Visualisation (sp.Scene):
                         group = 1
                     ))
                 elif column == '$':
-                    self.roadCones.append (sp.Beam (
+                    self.roadBorders.append (sp.Beam (
                         size = (0.5,0.5, 0.01),
                         center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.005),
                         color = (0,0,1),
                         group = 1
                     ))
-                
+        obstacles = open ('obstacles.track')
+        for rowIndex, row in enumerate (obstacles):
+            for columnIndex, column in enumerate (row):
+                if column == '^':
+                  self.roadCones.append (sp.Cone (
+                        size = (0.1, 0.1, 0.15),
+                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
+                        color = (1, 0.3, 0),
+                        group = 1
+                    ))
+     
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
         self.startX = -7
         self.startY = 5
         self.init = True
-        self.lidar = Lidar (180, self.roadCones)
+        self.lidar = Lidar (180, self.roadCones, self.roadBorders)
         
     def display (self):
         if self.init:
@@ -226,6 +251,8 @@ class Visualisation (sp.Scene):
             ) +
             
             sum (roadCone () for roadCone in self.roadCones)
+            +
+            sum (roadborder () for roadborder in self.roadBorders)
             +
             sum (asphalt () for asphalt in self.asphalt)
         )

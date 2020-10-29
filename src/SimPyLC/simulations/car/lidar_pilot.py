@@ -49,57 +49,85 @@ class LidarPilot:
         elif key == 'KEY_DOWN':
             self.driveEnabled = False
         
-        self.lidarDistances = sp.world.visualisation.lidar.distances
+        self.lidarDistances = sp.world.visualisation.lidar.roadDistances
+        self.obstacleDistances = sp.world.visualisation.lidar.distances
         self.lidarHalfApertureAngle = sp.world.visualisation.lidar.halfApertureAngle
         
     def sweep (self):   # Control algorithm to be tested
-        self.LeftObstacleDistance = sp.finity
-        self.LeftObstacleAngle = 0
+        self.leftRoadBorder = sp.finity
+        self.leftRoadBorderAngle = 0
         
-        self.nextLeftObstacleDistance = sp.finity
-        self.nextLeftObstacleAngle = 0
+        self.nextLeftRoadBorder = sp.finity
+        self.nextLeftRoadBorderAngle = 0
 
-        self.RightObstacleDistance = sp.finity
-        self.RightObstacleAngle = 0
+        self.rightRoadborder = sp.finity
+        self.rightRoadBorderAngle = 0
         
-        self.nextRightObstacleDistance = sp.finity
-        self.nextRightObstacleAngle = 0
+        self.nextRightRoadborder = sp.finity
+        self.nextRightRoadBorderAngle = 0
 
         for lidarAngle in range (-self.lidarHalfApertureAngle, self.lidarHalfApertureAngle):
             lidarDistance = self.lidarDistances [lidarAngle]
-            # Detect 4 closest points 
-            # discard points within 15 degrees to avoid a head on collision  
-            if lidarDistance < self.LeftObstacleDistance and lidarAngle < -15:
-                self.nextLeftObstacleDistance =  self.LeftObstacleDistance
-                self.nextLeftObstacleAngle = self.LeftObstacleAngle 
-                self.LeftObstacleDistance = lidarDistance 
-                self.LeftObstacleAngle = lidarAngle
-            elif lidarDistance < self.RightObstacleDistance and lidarAngle > 15:
-                self.nextRightObstacleDistance =  self.RightObstacleDistance
-                self.nextRightObstacleAngle = self.RightObstacleAngle
-                self.RightObstacleDistance = lidarDistance 
-                self.RightObstacleAngle = lidarAngle
-            elif lidarDistance < self.nextLeftObstacleDistance and lidarAngle < -15:
-                self.nextLeftObstacleDistance = lidarDistance
-                self.nextLeftObstacleAngle = lidarAngle
-            elif lidarDistance < self.nextRightObstacleDistance and lidarAngle > 15:
-                self.nextRightObstacleDistance = lidarDistance
-                self.nextRightObstacleAngle = lidarAngle
-                
+            obstacleDistance = self.obstacleDistances [lidarAngle]
+            
+            #check if encountering obstacles
+            self.avoidObstacleCollision(lidarAngle, obstacleDistance)
+
+            # Detect 4 closest points of road borders
+            # discard points within 25 degrees to avoid a head on collision  
+            if lidarDistance < self.leftRoadBorder and lidarAngle < -25:
+                self.nextLeftRoadBorder =  self.leftRoadBorder
+                self.nextLeftRoadBorderAngle = self.leftRoadBorderAngle 
+                self.leftRoadBorder = lidarDistance 
+                self.leftRoadBorderAngle = lidarAngle
+            elif lidarDistance < self.rightRoadborder and lidarAngle > 25:
+                self.nextRightRoadborder =  self.rightRoadborder
+                self.nextRightRoadBorderAngle = self.rightRoadBorderAngle
+                self.rightRoadborder = lidarDistance 
+                self.rightRoadBorderAngle = lidarAngle
+            elif lidarDistance < self.nextLeftRoadBorder and lidarAngle < -25:
+                self.nextLeftRoadBorder = lidarDistance
+                self.nextLeftRoadBorderAngle = lidarAngle
+            elif lidarDistance < self.nextRightRoadborder and lidarAngle > 25:
+                self.nextRightRoadborder = lidarDistance
+                self.nextRightRoadBorderAngle = lidarAngle
+
         #calculate coordinates for 4 closest points 
-        self.coordinatesNR = self.calculateCoordinates(self.nextRightObstacleAngle, self.nextRightObstacleDistance)
-        self.coordinatesR = self.calculateCoordinates(self.RightObstacleAngle, self.RightObstacleDistance)
-        self.coordinatesNL = self.calculateCoordinates(self.nextLeftObstacleAngle, self.nextLeftObstacleDistance)
-        self.coordinatesL = self.calculateCoordinates(self.LeftObstacleAngle, self.LeftObstacleDistance)
+        self.coordinatesNR = self.calculateCoordinates(self.nextRightRoadBorderAngle, self.nextRightRoadborder)
+        self.coordinatesR = self.calculateCoordinates(self.rightRoadBorderAngle, self.rightRoadborder)
+        self.coordinatesNL = self.calculateCoordinates(self.nextLeftRoadBorderAngle, self.nextLeftRoadBorder)
+        self.coordinatesL = self.calculateCoordinates(self.leftRoadBorderAngle, self.leftRoadBorder)
 
         #calculate coordinates for middle point  
         self.xMiddle = self.coordinatesL[0] + self.coordinatesNL[0] + self.coordinatesR[0] + self.coordinatesNR[0]
         self.yMiddle = self.coordinatesL[1] + self.coordinatesNL[1] + self.coordinatesR[1] + self.coordinatesNR[1]
 
         #calculate angle and velocity from middle point
-        self.steeringAngle = math.degrees(math.atan((self.yMiddle / self.xMiddle)))
+        if(math.degrees(math.atan((self.yMiddle / self.xMiddle))) > 5 or math.degrees(math.atan((self.yMiddle / self.xMiddle))) < -5):
+            self.steeringAngle = (math.degrees(math.atan((self.yMiddle / self.xMiddle))) + (sp.world.physics.steeringAngle*15))/16
+        else:
+            self.steeringAngle = math.degrees(math.atan((self.yMiddle / self.xMiddle)))
         self.targetVelocity = (90 - sp.abs (self.steeringAngle))/80 if self.driveEnabled else 0
     
+    def avoidObstacleCollision(self, lidarAngle, obstacleDistance):
+        if(lidarAngle > -25 and lidarAngle < 25):
+            #check if obstacle closer than road borders
+            if((obstacleDistance < self.leftRoadBorder and self.leftRoadBorder < sp.finity) or  (obstacleDistance < self.rightRoadborder and self.rightRoadborder < sp.finity) ): 
+                #find biggest gap to drive through
+                if(sp.abs(obstacleDistance - self.leftRoadBorder) > sp.abs(obstacleDistance - self.rightRoadborder) ):
+                    self.rightRoadborder = obstacleDistance
+                    self.rightRoadBorderAngle = lidarAngle
+                else:
+                    self.leftRoadBorder = obstacleDistance
+                    self.leftObstacleAngle = lidarAngle
+            elif((obstacleDistance < self.nextLeftRoadBorder and self.nextLeftRoadBorder < sp.finity) or  (obstacleDistance < self.nextRightRoadborder and self.nextRightRoadborder < sp.finity)):
+                if(sp.abs(obstacleDistance - self.nextLeftRoadBorder) > sp.abs(obstacleDistance - self.nextRightRoadborder) ):
+                    self.nextRightRoadborder = obstacleDistance
+                    self.nextRightRoadBorderAngle = lidarAngle
+                else:
+                    self.nextLeftRoadBorder = obstacleDistance
+                    self.nextLeftRoadBorderAngle = lidarAngle
+
     def calculateCoordinates(self, angle, distance):
         x = math.cos(math.radians(angle)) * distance
         y = math.sin(math.radians(angle)) * distance
