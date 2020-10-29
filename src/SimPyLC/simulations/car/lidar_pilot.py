@@ -75,7 +75,7 @@ class LidarPilot:
             self.avoidObstacleCollision(lidarAngle, obstacleDistance)
 
             # Detect 4 closest points of road borders
-            self.calculateFourClosestPoints()
+            self.calculateFourClosestPoints(lidarAngle,lidarDistance)
 
         #calculate coordinates for 4 closest points 
         self.coordinatesNR = self.calculateCoordinates(self.nextRightRoadBorderAngle, self.nextRightRoadborder)
@@ -117,24 +117,24 @@ class LidarPilot:
                     self.nextLeftRoadBorder = obstacleDistance
                     self.nextLeftRoadBorderAngle = lidarAngle
 
-    def calculateFourClosestPoints(self):
+    def calculateFourClosestPoints(self, lidarAngle, lidarDistance):
         # discard points within 25 degrees to avoid a head on collision  
         if lidarDistance < self.leftRoadBorder and lidarAngle < -25:
                 self.nextLeftRoadBorder =  self.leftRoadBorder
                 self.nextLeftRoadBorderAngle = self.leftRoadBorderAngle 
                 self.leftRoadBorder = lidarDistance 
                 self.leftRoadBorderAngle = lidarAngle
-            elif lidarDistance < self.rightRoadborder and lidarAngle > 25:
-                self.nextRightRoadborder =  self.rightRoadborder
-                self.nextRightRoadBorderAngle = self.rightRoadBorderAngle
-                self.rightRoadborder = lidarDistance 
-                self.rightRoadBorderAngle = lidarAngle
-            elif lidarDistance < self.nextLeftRoadBorder and lidarAngle < -25:
-                self.nextLeftRoadBorder = lidarDistance
-                self.nextLeftRoadBorderAngle = lidarAngle
-            elif lidarDistance < self.nextRightRoadborder and lidarAngle > 25:
-                self.nextRightRoadborder = lidarDistance
-                self.nextRightRoadBorderAngle = lidarAngle
+        elif lidarDistance < self.rightRoadborder and lidarAngle > 25: 
+            self.nextRightRoadborder =  self.rightRoadborder
+            self.nextRightRoadBorderAngle = self.rightRoadBorderAngle
+            self.rightRoadborder = lidarDistance 
+            self.rightRoadBorderAngle = lidarAngle
+        elif lidarDistance < self.nextLeftRoadBorder and lidarAngle < -25:
+            self.nextLeftRoadBorder = lidarDistance
+            self.nextLeftRoadBorderAngle = lidarAngle
+        elif lidarDistance < self.nextRightRoadborder and lidarAngle > 25:
+            self.nextRightRoadborder = lidarDistance
+            self.nextRightRoadBorderAngle = lidarAngle
 
     def calculateCoordinates(self, angle, distance):
         x = math.cos(math.radians(angle)) * distance
