@@ -85,8 +85,9 @@ class LidarPilot:
         self.coordinatesNL = self.calculateCoordinates(self.nextLeftRoadBorderAngle, self.nextLeftRoadBorder)
         self.coordinatesL = self.calculateCoordinates(self.leftRoadBorderAngle, self.leftRoadBorder)
         self.coordinatesO = self.calculateCoordinates(self.closestObstacleAngle, self.closestObstacleDistance)
-         
-        if(self.closestObstacleAngle > -25 and self.closestObstacleAngle < 25 and self.isObstacleWithinDirection()):
+        
+        #if obstacle within reach avoid
+        if(self.closestObstacleAngle > -30 and self.closestObstacleAngle < 30 and self.isObstacleWithinDirection()):
             self.avoidObstacleCollision()
        
         self.xMiddle = self.coordinatesL[0] + self.coordinatesNL[0] + self.coordinatesR[0] + self.coordinatesNR[0]
