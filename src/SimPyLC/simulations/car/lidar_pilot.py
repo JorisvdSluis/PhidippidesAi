@@ -28,13 +28,17 @@ import time as tm
 import traceback as tb
 import math
 import simpylc as sp
+import pid as pid
 
 class LidarPilot:
     def __init__ (self):
         print ('Use up arrow to start, down arrow to stop')
         
         self.driveEnabled = False
-        
+        sp.world.physics.proportional.set(0.40)
+        sp.world.physics.intergral.set(20)
+        sp.world.physics.differential.set(15)
+        self.steeringPID = pid.Pid(sp.world.physics.proportional,sp.world.physics.intergral, sp.world.physics.differential)
         while True:
             self.input ()
             self.sweep ()
@@ -154,24 +158,7 @@ class LidarPilot:
     def controlSteeringAngle(self): 
         soughtAfterAngle = math.degrees(math.atan((self.yMiddle / self.xMiddle)))
         currentAngle = sp.world.physics.steeringAngle
-        diffrence = soughtAfterAngle - currentAngle
-
-        if(diffrence > 30 or diffrence < -30):
-            self.steeringAngle = currentAngle + (diffrence / 40)
-        if(diffrence > 25 or diffrence < -25):
-            self.steeringAngle = currentAngle + (diffrence / 12.5)
-        elif(diffrence > 20 or diffrence < -20):
-            self.steeringAngle = currentAngle + (diffrence / 10)
-        elif(diffrence > 15 or diffrence < -15):
-            self.steeringAngle = currentAngle + (diffrence / 8)
-        elif(diffrence > 10 or diffrence < -10):
-            self.steeringAngle = currentAngle + (diffrence / 6)
-        elif(diffrence > 5 or diffrence < -5):
-            self.steeringAngle = currentAngle + (diffrence / 4)
-        elif(diffrence > 2.5 or diffrence < -2.5):
-            self.steeringAngle = currentAngle + (diffrence / 2)
-        else:
-             self.steeringAngle = currentAngle + diffrence
+        self.steeringAngle =self.steeringPID.control(currentAngle, soughtAfterAngle, 0.02)
 
     def output (self):  # Output to simulator
         sp.world.physics.steeringAngle.set (self.steeringAngle)

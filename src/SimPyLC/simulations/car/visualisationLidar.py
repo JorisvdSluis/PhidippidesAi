@@ -167,7 +167,7 @@ class Visualisation (sp.Scene):
         #                 group = 1
         #     ))
 
-        track = open ('asphalt.track')
+        track = open ('asphalt_hard.track')
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
                 if column == '*':
@@ -184,16 +184,16 @@ class Visualisation (sp.Scene):
                         color = (0,0,1),
                         group = 1
                     ))
-        obstacles = open ('obstacles.track')
-        for rowIndex, row in enumerate (obstacles):
-            for columnIndex, column in enumerate (row):
-                if column == '^':
-                  self.roadCones.append (sp.Cone (
-                        size = (0.1, 0.1, 0.15),
-                        center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
-                        color = (1, 0.3, 0),
-                        group = 1
-                    ))
+        # obstacles = open ('obstacles.track')
+        # for rowIndex, row in enumerate (obstacles):
+        #     for columnIndex, column in enumerate (row):
+        #         if column == '^':
+        #           self.roadCones.append (sp.Cone (
+        #                 size = (0.1, 0.1, 0.15),
+        #                 center = (columnIndex / 4 - 8, rowIndex / 2 - 8, 0.15),
+        #                 color = (1, 0.3, 0),
+        #                 group = 1
+        #             ))
      
         # self.startX = data[0].get("x") / 4 - 8
         # self.startY = data[0].get("y") / 2 - 8
