@@ -41,7 +41,9 @@ class Physics (sp.Module):
         self.velocity = sp.Register ()
         self.midWheelAngularVelocity = sp.Register ()
         self.midWheelAngle = sp.Register (30)
-        
+        self.proportional = sp.Register()
+        self.intergral = sp.Register()
+        self.differential = sp.Register()
         self.steeringAngle = sp.Register ()
         self.midSteeringAngle = sp.Register ()
         
