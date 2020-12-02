@@ -32,11 +32,11 @@ import sys as ss
 ss.path.append (os.path.abspath ('../../..')) # If you want to store your simulations somewhere else, put SimPyLC in your PYTHONPATH environment variable
 
 import simpylc as sp
-
 import control as ct
 import keyboard_pilot as kp
 import lidar_pilot as lp
 import lidar_pilot_sp as ls
+import camera_pilot as cp
 import physics as ps
 import visualisation as vs
 import visualisationLidar as vsl
@@ -45,10 +45,10 @@ import timing as tm
 sp.World (
    # ct.Control,
     #kp.KeyboardPilot,
-     lp.LidarPilot,
+    cp.CameraPilot,
     # ls.LidarPilotSp,
     ps.Physics,
     # vs.Visualisation,
-    vsl.Visualisation,
+    vs.Visualisation,
     #  tm.Timing
 )

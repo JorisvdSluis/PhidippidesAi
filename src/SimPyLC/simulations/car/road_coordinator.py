@@ -79,30 +79,3 @@ class RoadCoordinator:
             cv2.line(image, line[0], line[1], (255, 255, 255), thickness=2)
             for point in line:
                 cv2.circle(image, point, 8, (255, 255, 255), -1)
-        cv2.imshow('image', image)
-        # cv2.waitKey() 
-
-# test = RoadCoordinator(300,100,[145,0,0],[150, 255, 255])
-# test = RoadCoordinator(195,0,[100,150,0],[140,255,255])
-# image = cv2.imread('./test4.png')
-# result = test.getRoadBorderCoordinates(image)
-# soughtAfterAngle = math.degrees(math.atan((test.middleY / test.middleX)))
-# print(soughtAfterAngle)
-test = RoadCoordinator(200,0,[100,150,0],[140,255,255])
-cap = cv2.VideoCapture('test.mp4')
-while(cap.isOpened()):
-    ret, frame = cap.read()
-    if ret == True:
-        test.getRoadBorderCoordinates(frame)
-        soughtAfterAngle = math.degrees(math.atan((test.middleY / test.middleX)))
-        print(soughtAfterAngle)
-        # cv2.imshow('frame',frame)
-
-        
-        if cv2.waitKey(25) & 0xFF == ord('q'):    
-            break
-    else:
-        break
-
-cap.release()
-cv2.destroyAllWindows()

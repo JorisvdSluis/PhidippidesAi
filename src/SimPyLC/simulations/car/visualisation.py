@@ -141,7 +141,7 @@ class Visualisation (sp.Scene):
         self.windowRear = Window (size = (0.05, 0.14, 0.18), center = (-0.18, 0, -0.025),angle = 72) 
 
         self.roadCones = []
-        track = open ('hard.track')
+        track = open ('no.track')
         
         for rowIndex, row in enumerate (track):
             for columnIndex, column in enumerate (row):
